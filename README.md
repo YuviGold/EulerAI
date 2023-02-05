@@ -57,45 +57,5 @@ This project is running with Python and [Poetry](https://python-poetry.org/docs/
 
 ## Contributing
 
-Not all the problems run smooth. The prompt is consuming Project Euler's HTML and OpenAI doesn't like it that much.
-The parsing still needs to be improved.
-
-    ```shell
-    ➜  poetry run ./main.py --problem 27 --verbose
-                                    Project Euler                                  
-    ┏━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-    ┃ Problem ┃ Solution ┃ Status ┃ Prompt                                         ┃
-    ┡━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-    │ 27      │ 59231    │ ❌     │ For the following problem, return only the     │
-    │         │          │        │ solution as a number without any other text:   │
-    │         │          │        │                                                │
-    │         │          │        │ <div class="problem_content" role="problem">   │
-    │         │          │        │ <p>Euler discovered the remarkable quadratic   │
-    │         │          │        │ formula:</p>                                   │
-    │         │          │        │ <p class="center">$n^2 + n + 41$</p>           │
-    │         │          │        │ <p>It turns out that the formula will produce  │
-    │         │          │        │ 40 primes for the consecutive integer values   │
-    │         │          │        │ $0 \le n \le 39$. However, when $n = 40, 40^2  │
-    │         │          │        │ + 40 + 41 = 40(40 + 1) + 41$ is divisible by   │
-    │         │          │        │ 41, and certainly when $n = 41, 41^2 + 41 +    │
-    │         │          │        │ 41$ is clearly divisible by 41.</p>            │
-    │         │          │        │ <p>The incredible formula $n^2 - 79n + 1601$   │
-    │         │          │        │ was discovered, which produces 80 primes for   │
-    │         │          │        │ the consecutive values $0 \le n \le 79$. The   │
-    │         │          │        │ product of the coefficients, −79 and 1601, is  │
-    │         │          │        │ −126479.</p>                                   │
-    │         │          │        │ <p>Considering quadratics of the form:</p>     │
-    │         │          │        │ <blockquote>                                   │
-    │         │          │        │ $n^2 + an + b$, where $|a| &lt; 1000$ and $|b| │
-    │         │          │        │ \le 1000$<br><br/><div>where $|n|$ is the      │
-    │         │          │        │ modulus/absolute value of $n$<br/>e.g. $|11| = │
-    │         │          │        │ 11$ and $|-4| = 4$</div>                       │
-    │         │          │        │ </br></blockquote>                             │
-    │         │          │        │ <p>Find the product of the coefficients, $a$   │
-    │         │          │        │ and $b$, for the quadratic expression that     │
-    │         │          │        │ produces the maximum number of primes for      │
-    │         │          │        │ consecutive values of $n$, starting with $n =  │
-    │         │          │        │ 0$.</p>                                        │
-    │         │          │        │ </div>                                         │
-    └─────────┴──────────┴────────┴────────────────────────────────────────────────┘
-    ```
+Some of the problems might not get parsed correctly and chatGPT will not be happy with the input.
+If you find any problem, please open an issue, or even better, a PR.

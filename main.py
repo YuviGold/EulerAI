@@ -18,19 +18,40 @@ TEMPERATURE = 0.0
 
 
 def get_problem(problem_number: int):
-    url = f"https://projecteuler.net/problem={problem_number}"
+    url = f"https://projecteuler.net/minimal={problem_number}"
     response = requests.get(url)
     response.raise_for_status()
     if response.status_code == 200:
-        soup = BeautifulSoup(response.text, "html.parser")
-        problem_text = str(soup.find('div', {'class': 'problem_content'}))
-        problem_text = problem_text.strip()
-        return problem_text
+        return response.text
     return None
 
 
+def parse_problem(problem_text: str) -> str:
+    t = problem_text
+
+    # replace <sup> and <sub> with ^ and _
+    t = problem_text.replace("<sup>", "^").replace("</sup>", "")
+    t.replace("<sub>", "_").replace("</sub>", "")
+
+    t = t.replace("$", "")  # dollar signs used for math
+
+    t = t.replace("\lt", "<")
+    t = t.replace("\gt", ">")
+    t = t.replace("\le", "≤")
+    t = t.replace("\ge", "≥")
+    t = t.replace("\\ne", "≠")
+    t = t.replace("\pm", "±")
+
+    # add newlines
+    t = t.replace("<p>", "").replace("</p>", "\n").replace("<br />", "\n")
+
+    # remove all other tags
+    soup = BeautifulSoup(t, "html.parser")
+    return soup.text.strip()
+
+
 def pretty_bool(condition: bool) -> str:
-    return ':white_check_mark:' if condition else ':cross_mark:'
+    return ":white_check_mark:" if condition else ":cross_mark:"
 
 
 def openai_request(prompt: str, gpt_model: str):
@@ -71,7 +92,7 @@ def run(problem: int = 1, amount: int = 1, verbose: bool = False):
     table = Table(*("Problem", "Solution", "Status"), title="Project Euler")
 
     if verbose:
-        table.add_column('Prompt')
+        table.add_column("Prompt")
 
     for problem_number in range(problem, problem + amount):
         prompt, solution, status = solve_problem(problem_number)
@@ -88,5 +109,5 @@ def main():
     app()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
