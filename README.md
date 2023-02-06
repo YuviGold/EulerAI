@@ -10,7 +10,7 @@ Then, submitting the answers to [euler.haku.dev](https://euler.haku.dev/) that r
 What do you say?
 Would ChatGPT answer all the questions correct?
 
-## How To Run?
+## Setup
 
 This project is running with Python and [Poetry](https://python-poetry.org/docs/#installation)
 
@@ -20,31 +20,17 @@ This project is running with Python and [Poetry](https://python-poetry.org/docs/
     poetry install
     ```
 
-1. Signup to OpenAI, and retrieve an [API token](https://platform.openai.com/docs/quickstart/build-your-application)
+2. Signup to OpenAI, and retrieve an [API token](https://platform.openai.com/docs/quickstart/build-your-application)
     ```shell
     export OPENAI_API_KEY=<API_TOKEN>
     ```
 
+## How to use?
 1. Run the project
-<!-- [[[cog
-import cog
-from textwrap import dedent
-import subprocess
-
-def print_command(command):
-    cog.outl(dedent(f"""
-```bash
-$ {command}
-
-{subprocess.getoutput(command)}
-```
-    """))
-
-print_command("poetry run ./main.py --problem 1 --amount 20")
-
-print_command("poetry run ./main.py --problem 27 --output json | jq")
-
-]]] -->
+    ```shell
+    poetry run ./main.py --problem 1 --amount 20
+    ```
+    This will run the script for problems 1 to 20, and output the results in a table as below.
 
 ```bash
 $ poetry run ./main.py --problem 1 --amount 20
@@ -76,21 +62,26 @@ $ poetry run ./main.py --problem 1 --amount 20
 └─────────┴──────────────┴────────┘
 ```
 
+## All options
+--problem <number> - Problem number to start from
+--amount <number> - Amount of problems to loop through
+--output <table(default)|json|pretty-json> - Output format
+--max_retries <number> - Max retries for each problem if it results with the wrong answer
 
+## Example output in JSON
 ```bash
-$ poetry run ./main.py --problem 27 --output json | jq
+$ poetry run ./main.py --problem 27 --output pretty-json
 
 [
   {
     "problem": "27",
     "prompt": "For the following problem, return only the solution as a number without any other text:\n\nEuler discovered the remarkable quadratic formula:\n\nn^2 + n + 41\n\nIt turns out that the formula will produce 40 primes for the consecutive integer values 0 ≤ n ≤ 39. However, when n = 40, 40^2 + 40 + 41 = 40(40 + 1) + 41 is divisible by 41, and certainly when n = 41, 41^2 + 41 + 41 is clearly divisible by 41.\n\nThe incredible formula n^2 - 79n + 1601 was discovered, which produces 80 primes for the consecutive values 0 ≤ n ≤ 79. The product of the coefficients, −79 and 1601, is −126479.\n\nConsidering quadratics of the form:\n\n\nn^2 + an + b, where |a| < 1000 and |b| ≤ 1000where |n| is the modulus/absolute value of ne.g. |11| = 11 and |-4| = 4\n\n\nFind the product of the coefficients, a and b, for the quadratic expression that produces the maximum number of primes for consecutive values of n, starting with n = 0.",
     "solution": "59231",
-    "status": false
+    "status": false,
+    "tries": 1
   }
 ]
 ```
-
-<!-- [[[end]]] -->
 
 ## Contributing
 
@@ -104,10 +95,4 @@ By default, act runs on a slim container image, for docker-compose usage the bas
 
 ```bash
 act --platform=ubuntu-latest=lucasalt/act_base:latest -j <JOB>
-```
-
-## Generate docs
-
-```bash
-make docs
 ```
