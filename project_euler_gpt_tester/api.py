@@ -11,7 +11,7 @@ GPT_MODELS = ["text-davinci-002", "text-davinci-003"]
 TEMPERATURE = 0.0
 
 
-def get_problem(problem_number: int):
+def get_problem(problem_number: int) -> str | None:
     url = f"https://projecteuler.net/minimal={problem_number}"
     response = requests.get(url)
     response.raise_for_status()
@@ -47,7 +47,7 @@ def parse_problem(problem_text: str) -> str:
     return soup.text.strip()
 
 
-def openai_request(prompt: str, gpt_model: str):
+def openai_request(prompt: str, gpt_model: str) -> str:
     response = openai.Completion.create(
         model=gpt_model,
         prompt=prompt,
@@ -56,7 +56,7 @@ def openai_request(prompt: str, gpt_model: str):
     return re.search(r"\d+", response.choices[0].text).group(0).strip()
 
 
-def submit_response(problem_number: int, solution: str):
+def submit_response(problem_number: int, solution: str) -> bool:
     url = f"https://euler.haku.dev/api?q={problem_number}&a={solution}"
     response = requests.post(url)
     response.raise_for_status()
