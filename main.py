@@ -45,7 +45,8 @@ def parse_problem(problem_text: str) -> str:
     t = t.replace("\pm", "±")
 
     # add newlines
-    t = t.replace("<p>", "").replace("</p>", "\n").replace("<br />", "\n")
+    t = t.replace("<p>", "").replace("</p>", "\n")
+    t = t.replace("<blockquote>", "").replace("</blockquote>", "\n")
 
     # remove all other tags
     soup = BeautifulSoup(t, "html.parser")
