@@ -26,7 +26,7 @@ This project is running with Python and [Poetry](https://python-poetry.org/docs/
     ```
 
 ## How to use?
-1. Run the project
+1. Run the follwing command
     ```shell
     poetry run ./main.py --problem 1 --amount 20
     ```
@@ -63,12 +63,12 @@ $ poetry run ./main.py --problem 1 --amount 20
 ```
 
 ## All options
---problem <number> - Problem number to start from
---amount <number> - Amount of problems to loop through
---output <table(default)|json|pretty-json> - Output format
---max_retries <number> - Max retries for each problem if it results with the wrong answer
+```--problem <number>``` - Problem number to start from
+```--amount <number>``` - Amount of problems to loop through
+```--output <table(default)|json|pretty-json>``` - Output format
+```--max_retries <number>``` - Max retries for each problem if it results with the wrong answer
 
-## Example output in JSON
+## Example output in pretty-json
 ```bash
 $ poetry run ./main.py --problem 27 --output pretty-json
 
