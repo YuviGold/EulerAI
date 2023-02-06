@@ -29,12 +29,14 @@ def get_problem(problem_number: int):
 def parse_problem(problem_text: str) -> str:
     t = problem_text
 
+    # replace x<x>th\st\nd\rd</x> with xth\st\nd\rd
+    t = re.sub(r"<\w+>(th|st|nd|rd)</\w+>", r"\1", t)
+
     # replace <sup> and <sub> with ^ and _
-    t = problem_text.replace("<sup>", "^").replace("</sup>", "")
-    t.replace("<sub>", "_").replace("</sub>", "")
+    t = t.replace("<sup>", "^").replace("</sup>", "")
+    t = t.replace("<sub>", "_").replace("</sub>", "")
 
     t = t.replace("$", "")  # dollar signs used for math
-
     t = t.replace("\lt", "<")
     t = t.replace("\gt", ">")
     t = t.replace("\le", "≤")
