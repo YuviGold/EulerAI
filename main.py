@@ -103,7 +103,9 @@ def run(problem: int = 1, amount: int = 1, verbose: bool = False):
         if not verbose:
             table.add_row(str(problem_number), solution, pretty_bool(status))
         else:
-            table.add_row(str(problem_number), solution, pretty_bool(status), prompt)
+            table.add_row(
+                str(problem_number), solution, pretty_bool(status), prompt + "\n\n"
+            )
 
     console.print(table)
 
