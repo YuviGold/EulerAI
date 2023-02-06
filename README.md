@@ -64,8 +64,11 @@ $ poetry run ./main.py --problem 1 --amount 20
 
 ## All options
 ```--problem <number>``` - Problem number to start from
+
 ```--amount <number>``` - Amount of problems to loop through
+
 ```--output <table(default)|json|pretty-json>``` - Output format
+
 ```--max_retries <number>``` - Max retries for each problem if it results with the wrong answer
 
 ## Example output in pretty-json
