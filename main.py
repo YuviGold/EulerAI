@@ -75,7 +75,7 @@ def submit_response(problem_number: int, solution: str):
 
 
 def solve_problem(number: int) -> tuple[str, str, bool]:
-    problem_text = get_problem(number)
+    problem_text = parse_problem(get_problem(number))
     prompt = f"For the following problem, return only the solution as a number without any other text:\n\n{problem_text}"
 
     for gpt_model in GPT_MODELS:
