@@ -19,7 +19,9 @@ def print_table(problems: list[dict[str, Any]]):
     table = Table(*("Problem", "Solution", "Status"), title="Project Euler")
 
     for problem in problems:
-        table.add_row(problem['problem'], problem['solution'], pretty_bool(problem['status']))
+        table.add_row(
+            problem["problem"], problem["solution"], pretty_bool(problem["status"])
+        )
 
     console.print(table)
 
@@ -30,25 +32,41 @@ app = Typer()
 class OutputType(str, Enum):
     TABLE = "table"
     JSON = "json"
+    PRETTY_JSON = "pretty-json"
 
 
 @app.command()
-def run(problem: int = 1, amount: int = 1, output: OutputType = OutputType.TABLE):
+def run(
+    problem: int = 1,
+    amount: int = 1,
+    output: OutputType = OutputType.TABLE,
+    max_retries: int = 1,
+):
     problems = []
 
     for problem_number in range(problem, problem + amount):
-        prompt, solution, status = solve_problem(problem_number)
-        problems.append({
-            'problem': str(problem_number),
-            'prompt': prompt,
-            'solution': solution,
-            'status': status
-        })
+        tries = 0
+        status = False
+        while not status and tries < max_retries:
+            prompt, solution, status = solve_problem(problem_number)
+            tries += 1
+
+        problems.append(
+            {
+                "problem": str(problem_number),
+                "prompt": prompt,
+                "solution": solution,
+                "status": status,
+                "tries": tries,
+            }
+        )
 
     if output == OutputType.TABLE:
         print_table(problems)
-    else:
+    elif output == OutputType.JSON:
         print(dumps(problems))
+    elif output == OutputType.PRETTY_JSON:
+        print(dumps(problems, indent=4))
 
 
 def main():
