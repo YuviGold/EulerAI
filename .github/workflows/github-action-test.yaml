@@ -1,0 +1,16 @@
+name: Test
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Run every day at midnight
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: make format lint

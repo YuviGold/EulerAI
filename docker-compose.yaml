@@ -1,0 +1,9 @@
+version: '3.4'
+
+services:
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.build
+    environment:
+      - OPENAI_API_KEY

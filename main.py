@@ -37,12 +37,12 @@ def parse_problem(problem_text: str) -> str:
     t = t.replace("<sub>", "_").replace("</sub>", "")
 
     t = t.replace("$", "")  # dollar signs used for math
-    t = t.replace("\lt", "<")
-    t = t.replace("\gt", ">")
-    t = t.replace("\le", "≤")
-    t = t.replace("\ge", "≥")
+    t = t.replace("\\lt", "<")
+    t = t.replace("\\gt", ">")
+    t = t.replace("\\le", "≤")
+    t = t.replace("\\ge", "≥")
     t = t.replace("\\ne", "≠")
-    t = t.replace("\pm", "±")
+    t = t.replace("\\pm", "±")
 
     # add newlines
     t = t.replace("<p>", "").replace("</p>", "\n")
@@ -75,8 +75,8 @@ def submit_response(problem_number: int, solution: str):
 
 
 def solve_problem(number: int) -> tuple[str, str, bool]:
-    problem_text = parse_problem(get_problem(number))
-    prompt = f"For the following problem, return only the solution as a number without any other text:\n\n{problem_text}"
+    prompt = "For the following problem, return only the solution as a number without any other text:\n\n"
+    prompt += parse_problem(get_problem(number))
 
     for gpt_model in GPT_MODELS:
         solution = openai_request(prompt, gpt_model).strip()

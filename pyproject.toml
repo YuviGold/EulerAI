@@ -18,6 +18,11 @@ openai = "^0.26.0"
 bs4 = "^0.0.1"
 typer = "^0.7.0"
 
+[tool.poetry.group.dev.dependencies]
+autopep8 = "^2.0.1"
+flake8 = "^6.0.0"
+cogapp = "^3.3.0"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
