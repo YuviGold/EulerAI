@@ -49,10 +49,10 @@ class OutputType(str, Enum):
 
 @app.command()
 def run(
-    problem: int = 1,
-    amount: int = 1,
+    problem: int = Option(1, min=1),
+    amount: int = Option(1, min=1),
     output: OutputType = OutputType.TABLE,
-    max_retries: int = 1,
+    max_retries: int = Option(1, min=1),
     temperature: Optional[float] = Option(None, min=0, max=1),
 ):
     problems = []
