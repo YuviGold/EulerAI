@@ -69,7 +69,7 @@ $ poetry run ./main.py --problem 1 --amount 20
 
 ```--output <table(default)|json|pretty-json>``` - Output format
 
-```--max_retries <number>``` - Max retries for each problem if it results with the wrong answer
+```--max_tries <number>``` - Number of attempts to slove the problems
 
 ## Example output in pretty-json
 ```bash

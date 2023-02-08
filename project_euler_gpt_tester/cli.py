@@ -26,16 +26,16 @@ def print_table(problems: list[dict[str, Any]]):
     console.print(table)
 
 
-def get_temperature(temperature: float | None, tries: int, max_retries: int) -> float:
+def get_temperature(temperature: float | None, tries: int, max_tries: int) -> float:
     if temperature is not None:
         return temperature
 
     # avoid devision by zero
-    if max_retries == 1 or tries == 0:
+    if max_tries == 1 or tries == 0:
         return 0
 
     # gradually increase temperature as we try more
-    return tries / (max_retries - 1)
+    return tries / (max_tries - 1)
 
 
 app = Typer()
@@ -52,7 +52,7 @@ def run(
     problem: int = Option(1, min=1),
     amount: int = Option(1, min=1),
     output: OutputType = OutputType.TABLE,
-    max_retries: int = Option(1, min=1),
+    max_tries: int = Option(1, min=1),
     temperature: Optional[float] = Option(None, min=0, max=1),
 ):
     problems = []
@@ -60,9 +60,9 @@ def run(
     for problem_number in range(problem, problem + amount):
         tries = 0
         status = False
-        while not status and tries < max_retries:
+        while not status and tries < max_tries:
             prompt, solution, status = solve_problem(
-                problem_number, get_temperature(temperature, tries, max_retries)
+                problem_number, get_temperature(temperature, tries, max_tries)
             )
             tries += 1
 
