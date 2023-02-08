@@ -63,13 +63,15 @@ $ poetry run ./main.py --problem 1 --amount 20
 ```
 
 ## All options
-```--problem <number>``` - Problem number to start from
+```--problem <number>``` - Problem number to start from.
 
-```--amount <number>``` - Amount of problems to loop through
+```--amount <number>``` - Amount of problems to loop through.
 
-```--output <table(default)|json|pretty-json>``` - Output format
+```--output <table(default)|json|pretty-json>``` - Output format.
 
-```--max_tries <number>``` - Number of attempts to slove the problems
+```--temperature <number from 0.0 to 1.0>``` - Creativity temperature for the model. 0 is low 1 is high.
+
+```--max_tries <number>``` - Number of attempts to slove the problems.
 
 ## Example output in pretty-json
 ```bash
