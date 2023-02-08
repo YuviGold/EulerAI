@@ -8,7 +8,6 @@ from bs4 import BeautifulSoup
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 GPT_MODELS = ["text-davinci-002", "text-davinci-003"]
-TEMPERATURE = 0.0
 
 
 def get_problem(problem_number: int) -> str | None:
@@ -47,11 +46,11 @@ def parse_problem(problem_text: str) -> str:
     return soup.text.strip()
 
 
-def openai_request(prompt: str, gpt_model: str) -> str:
+def openai_request(prompt: str, gpt_model: str, temperature: float) -> str:
     response = openai.Completion.create(
         model=gpt_model,
         prompt=prompt,
-        temperature=TEMPERATURE,
+        temperature=temperature,
     )
     return re.search(r"\d+", response.choices[0].text).group(0).strip()
 
@@ -64,12 +63,12 @@ def submit_response(problem_number: int, solution: str) -> bool:
     return response.text == "1"
 
 
-def solve_problem(number: int) -> tuple[str, str, bool]:
+def solve_problem(number: int, temperature: float) -> tuple[str, str, bool]:
     prompt = "For the following problem, return only the solution as a number without any other text:\n\n"
     prompt += parse_problem(get_problem(number))
 
     for gpt_model in GPT_MODELS:
-        solution = openai_request(prompt, gpt_model).strip()
+        solution = openai_request(prompt, gpt_model, temperature).strip()
         status = submit_response(number, solution)
         if status:
             break

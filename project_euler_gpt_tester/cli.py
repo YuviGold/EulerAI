@@ -1,10 +1,10 @@
 from enum import Enum
 from json import dumps
-from typing import Any
+from typing import Any, Optional
 
 from rich.console import Console
 from rich.table import Table
-from typer import Typer
+from typer import Typer, Option
 
 from .api import solve_problem
 
@@ -26,6 +26,18 @@ def print_table(problems: list[dict[str, Any]]):
     console.print(table)
 
 
+def get_temperature(temperature: float | None, tries: int, max_retries: int) -> float:
+    if temperature is not None:
+        return temperature
+
+    # avoid devision by zero
+    if max_retries == 1 or tries == 0:
+        return 0
+
+    # gradually increase temperature as we try more
+    return tries / (max_retries - 1)
+
+
 app = Typer()
 
 
@@ -41,6 +53,7 @@ def run(
     amount: int = 1,
     output: OutputType = OutputType.TABLE,
     max_retries: int = 1,
+    temperature: Optional[float] = Option(None, min=0, max=1),
 ):
     problems = []
 
@@ -48,7 +61,9 @@ def run(
         tries = 0
         status = False
         while not status and tries < max_retries:
-            prompt, solution, status = solve_problem(problem_number)
+            prompt, solution, status = solve_problem(
+                problem_number, get_temperature(temperature, tries, max_retries)
+            )
             tries += 1
 
         problems.append(
