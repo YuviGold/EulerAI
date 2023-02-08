@@ -81,7 +81,9 @@ def run(
     elif output == OutputType.JSON:
         print(dumps(problems))
     elif output == OutputType.PRETTY_JSON:
-        print(dumps(problems, indent=4))
+        indent = 4
+        nest_level = 3
+        dumps(problems, indent=indent).replace("\\n", f"\n{' ' * indent * nest_level}")
 
 
 def main():
