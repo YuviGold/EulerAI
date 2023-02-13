@@ -3,6 +3,10 @@
 Well, just following this question [Twitter Question](https://twitter.com/Arbel2025/status/1622223633853603841)
 Can ChatGPT answer [Project Euler](https://projecteuler.net/) questions?
 
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
 This is a Python script, scraping Project Euler questions, and send them to [OpenAI GPT-3](https://platform.openai.com/docs/models/gpt-3) model.
 Then, submitting the answers to [euler.haku.dev](https://euler.haku.dev/) that returns whether those answers were correct or not.
 
@@ -10,9 +14,13 @@ Then, submitting the answers to [euler.haku.dev](https://euler.haku.dev/) that r
 What do you say?
 Would ChatGPT answer all the questions correct?
 
-## Setup
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+## How To Run?
 
 This project is running with Python and [Poetry](https://python-poetry.org/docs/#installation)
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 
 
 1. Initialize environment
@@ -20,17 +28,31 @@ This project is running with Python and [Poetry](https://python-poetry.org/docs/
     poetry install
     ```
 
-2. Signup to OpenAI, and retrieve an [API token](https://platform.openai.com/docs/quickstart/build-your-application)
+1. Signup to OpenAI, and retrieve an [API token](https://platform.openai.com/docs/quickstart/build-your-application)
     ```shell
     export OPENAI_API_KEY=<API_TOKEN>
     ```
 
-## How to use?
-1. Run the follwing command
-    ```shell
-    poetry run ./main.py --problem 1 --amount 20
-    ```
-    This will run the script for problems 1 to 20, and output the results in a table as below.
+1. Run the project
+<!-- [[[cog
+import cog
+from textwrap import dedent
+import subprocess
+
+def print_command(command):
+    cog.outl(dedent(f"""
+```bash
+$ {command}
+
+{subprocess.getoutput(command)}
+```
+    """))
+
+print_command("poetry run ./main.py --problem 1 --amount 20")
+
+print_command("poetry run ./main.py --problem 27 --output pretty-json")
+
+]]] -->
 
 ```bash
 $ poetry run ./main.py --problem 1 --amount 20
@@ -62,18 +84,7 @@ $ poetry run ./main.py --problem 1 --amount 20
 └─────────┴──────────────┴────────┘
 ```
 
-## All options
-```--problem <number>``` - Problem number to start from.
 
-```--amount <number>``` - Amount of problems to loop through.
-
-```--output <table(default)|json|pretty-json>``` - Output format.
-
-```--temperature <number from 0.0 to 1.0>``` - Creativity temperature for the model. 0 is low 1 is high.
-
-```--max_tries <number>``` - Number of attempts to slove the problems.
-
-## Example output in pretty-json
 ```bash
 $ poetry run ./main.py --problem 27 --output pretty-json
 
@@ -88,6 +99,20 @@ $ poetry run ./main.py --problem 27 --output pretty-json
 ]
 ```
 
+<!-- [[[end]]] -->
+
+## Options
+
+```--problem <number>``` The problem number to start from, minimum is 1
+
+```--amount <number>``` The amount of problems to solve, default is 10
+
+```--output <table|pretty-json|json>``` The output format, default is table
+
+```--max-tries <number>``` The maximum amount of tries to get a correct answer, default is 1
+
+```--temperture <decimal>``` The creativty temperture of the model, default is 0, max is 1. 
+
 ## Contributing
 
 Some of the problems might not get parsed correctly and chatGPT will not be happy with the input.
@@ -100,4 +125,10 @@ By default, act runs on a slim container image, for docker-compose usage the bas
 
 ```bash
 act --platform=ubuntu-latest=lucasalt/act_base:latest -j <JOB>
+```
+
+## Generate docs
+
+```bash
+make docs
 ```
