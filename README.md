@@ -3,6 +3,10 @@
 Well, just following this question [Twitter Question](https://twitter.com/Arbel2025/status/1622223633853603841)
 Can ChatGPT answer [Project Euler](https://projecteuler.net/) questions?
 
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
 This is a Python script, scraping Project Euler questions, and send them to [OpenAI GPT-3](https://platform.openai.com/docs/models/gpt-3) model.
 Then, submitting the answers to [euler.haku.dev](https://euler.haku.dev/) that returns whether those answers were correct or not.
 
@@ -10,9 +14,13 @@ Then, submitting the answers to [euler.haku.dev](https://euler.haku.dev/) that r
 What do you say?
 Would ChatGPT answer all the questions correct?
 
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
 ## How To Run?
 
 This project is running with Python and [Poetry](https://python-poetry.org/docs/#installation)
+
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 
 
 1. Initialize environment
@@ -42,7 +50,7 @@ $ {command}
 
 print_command("poetry run ./main.py --problem 1 --amount 20")
 
-print_command("poetry run ./main.py --problem 27 --output json | jq")
+print_command("poetry run ./main.py --problem 27 --output pretty-json")
 
 ]]] -->
 
@@ -78,19 +86,32 @@ $ poetry run ./main.py --problem 1 --amount 20
 
 
 ```bash
-$ poetry run ./main.py --problem 27 --output json | jq
+$ poetry run ./main.py --problem 27 --output pretty-json
 
 [
   {
     "problem": "27",
     "prompt": "For the following problem, return only the solution as a number without any other text:\n\nEuler discovered the remarkable quadratic formula:\n\nn^2 + n + 41\n\nIt turns out that the formula will produce 40 primes for the consecutive integer values 0 ≤ n ≤ 39. However, when n = 40, 40^2 + 40 + 41 = 40(40 + 1) + 41 is divisible by 41, and certainly when n = 41, 41^2 + 41 + 41 is clearly divisible by 41.\n\nThe incredible formula n^2 - 79n + 1601 was discovered, which produces 80 primes for the consecutive values 0 ≤ n ≤ 79. The product of the coefficients, −79 and 1601, is −126479.\n\nConsidering quadratics of the form:\n\n\nn^2 + an + b, where |a| < 1000 and |b| ≤ 1000where |n| is the modulus/absolute value of ne.g. |11| = 11 and |-4| = 4\n\n\nFind the product of the coefficients, a and b, for the quadratic expression that produces the maximum number of primes for consecutive values of n, starting with n = 0.",
     "solution": "59231",
-    "status": false
+    "status": false,
+    "tries": 1
   }
 ]
 ```
 
 <!-- [[[end]]] -->
+
+## Options
+
+```--problem <number>``` The problem number to start from, minimum is 1
+
+```--amount <number>``` The amount of problems to solve, default is 10
+
+```--output <table|pretty-json|json>``` The output format, default is table
+
+```--max-tries <number>``` The maximum amount of tries to get a correct answer, default is 1
+
+```--temperture <decimal>``` The creativty temperture of the model, default is 0, max is 1. 
 
 ## Contributing
 
