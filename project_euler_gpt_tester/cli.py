@@ -16,11 +16,14 @@ def pretty_bool(condition: bool) -> str:
 
 
 def print_table(problems: list[dict[str, Any]]):
-    table = Table(*("Problem", "Solution", "Status"), title="Project Euler")
+    table = Table(*("Problem", "Solution", "Status", "Answers"), title="Project Euler")
 
     for problem in problems:
         table.add_row(
-            problem["problem"], problem["solution"], pretty_bool(problem["status"])
+            problem["problem"],
+            problem["solution"],
+            pretty_bool(problem["status"]),
+            str(problem["answers"])
         )
 
     console.print(table)
@@ -60,10 +63,12 @@ def run(
     for problem_number in range(problem, problem + amount):
         tries = 0
         status = False
+        answers = []
         while not status and tries < max_tries:
-            prompt, solution, status = solve_problem(
+            prompt, solution, status, try_answers = solve_problem(
                 problem_number, get_temperature(temperature, tries, max_tries)
             )
+            answers += try_answers
             tries += 1
 
         problems.append(
@@ -71,6 +76,7 @@ def run(
                 "problem": str(problem_number),
                 "prompt": prompt,
                 "solution": solution,
+                "answers": answers,
                 "status": status,
                 "tries": tries,
             }
@@ -83,7 +89,7 @@ def run(
     elif output == OutputType.PRETTY_JSON:
         indent = 4
         nest_level = 3
-        dumps(problems, indent=indent).replace("\\n", f"\n{' ' * indent * nest_level}")
+        print(dumps(problems, indent=indent).replace("\\n", f"\n{' ' * indent * nest_level}"))
 
 
 def main():
