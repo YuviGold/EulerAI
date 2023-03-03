@@ -1,13 +1,13 @@
 [tool.poetry]
-name = "project_euler_gpt_tester"
+name = "EulerAI"
 version = "0.1.0"
-description = "Project Euler GPT Tester"
+description = "Project Euler GPT Resolver"
 
 authors = [
     "YuviGold"
 ]
 
-repository = "https://github.com/YuviGold/project_euler_gpt_tester"
+repository = "https://github.com/YuviGold/EulerAI"
 readme = "README.md"
 
 [tool.poetry.dependencies]

@@ -1,4 +1,4 @@
-# Project Euler GPT-3 Tester
+# EulerAI - Project Euler GPT Resolver
 
 Well, just following this question [Twitter Question](https://twitter.com/Arbel2025/status/1622223633853603841)
 Can ChatGPT answer [Project Euler](https://projecteuler.net/) questions?
