@@ -20,7 +20,7 @@ typer = "^0.7.0"
 retry = "^0.9.2"
 
 [tool.poetry.group.dev.dependencies]
-autopep8 = "^2.0.1"
+autopep8 = "^2.0.2"
 flake8 = "^6.0.0"
 cogapp = "^3.3.0"
 
